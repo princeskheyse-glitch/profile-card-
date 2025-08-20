@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile Card Generator</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #eeeeee; 
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .form-section {
+      background: #f5f5f5;
+      padding: 20px;
+      border-radius: 15px;
+      width: 350px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .form-section label {
+      font-weight: 600;
+      font-size: 14px;
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      color: #b8aeae;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    input[type="color"] {
+      width: 70px;
+      height: 30px;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    button {
+      margin-top: 15px;
+      background: #333;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #111;
+    }
+
+    
+    .card-box {
+      border: 3px solid black;
+      border-radius: 12px;  
+      padding: 15px;
+      text-align: center;
+      width: 280px;
+      box-shadow: 0 4px 12px rgba(223, 210, 210, 0.1);
+    }
+    #cardName {
+      font-size: 18px; 
+      font-weight: bold;
+      margin: 8px 0;
+    }
+    #cardCourse {
+      font-size: 15px;
+      margin: 5px 0;
+      color: #ccbaba;
+    }
+    #cardBio {
+      font-size: 13px;
+      color: #666;
+    }
+
+    #likeBtn {
+      background: #575757;
+      margin-top: 10px;
+      padding: 6px 12px;
+    }
+    #likeBtn:hover {
+      background: #222;
+    }
+
+    
+    .preview {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+<h2 class="title">PROFILE CARD GENERATOR</h2>
+
+<div class="container">
+  
+  <div class="form-section">
+    <label>Name:</label>
+    <input type="text" id="inputName">
+
+    <label>Course/Year Level:</label>
+    <input type="text" id="inputCourse">
+
+    <label>Bio:</label>
+    <textarea id="inputBio"></textarea>
+
+    <label>Favorite Color:</label>
+    <input type="color" id="inputColor">
+
+    <button onclick="buildCard()">Generate Profile Card</button>
+  </div>
+
+
+  <div id="profileCard" class="card-box">
+    <h3 id="cardName">Your Name</h3>
+    <h4 id="cardCourse">Your Course</h4>
+    <p id="cardBio">Your bio goes here...</p>
+    <button id="likeBtn">🤍 Like</button>
+    <p>Likes: <span id="likeCount">0</span></p>
+  </div>
+
+ 
+  <div class="preview">
+    <h4>Real-Time Preview</h4>
+    <p>Name: <span id="previewName">---</span></p>
+    <p>Course: <span id="previewCourse">---</span></p>
+  </div>
+</div>
+
+<script>
+
+  document.getElementById("inputName").addEventListener("input", function() {
+    document.getElementById("previewName").innerText = this.value || "---";
+  });
+
+  document.getElementById("inputCourse").addEventListener("input", function() {
+    document.getElementById("previewCourse").innerText = this.value || "---";
+  });
+
+  
+  function buildCard() {
+    document.getElementById("cardName").innerText = 
+      document.getElementById("inputName").value || "Your Name";
+    document.getElementById("cardCourse").innerText = 
+      document.getElementById("inputCourse").value || "Your Course";
+    document.getElementById("cardBio").innerText = 
+      document.getElementById("inputBio").value || "Your bio goes here...";
+
+    let pickedColor = document.getElementById("inputColor").value;
+    document.getElementById("profileCard").style.borderColor = pickedColor;
+  }
+
+  
+  let liked = false;
+  const likeBtn = document.getElementById("likeBtn");
+  const likeCount = document.getElementById("likeCount");
+
+  likeBtn.addEventListener("click", function() {
+    liked = !liked;
+    if (liked) {
+      likeBtn.textContent = "❤️ Liked";
+      likeCount.textContent = "1";
+    } else {
+      likeBtn.textContent = "🤍 Like";
+      likeCount.textContent = "0";
+    }
+  });
+</script>
+
+</body>
+</html>
